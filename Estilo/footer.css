@@ -55,6 +55,8 @@
 
 .pie-pagina .grupo-1 .box .telefono svg{
     margin-right: 10px;
+    text-decoration: none; 
+    color: inherit;
     
 }
 
@@ -70,6 +72,8 @@
     font-size: 15px;
     font-weight: 400;
 }
+
+
 
 @media screen and (max-width:800px) {
     .pie-pagina .grupo-1{

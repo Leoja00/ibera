@@ -34,4 +34,3 @@ $headers .="FROM: $nombre <$email>\r\n";
 mail($destinatario,$asunto,$cuerpo,$headers);
 echo "Correo enviado";
 ?>
-

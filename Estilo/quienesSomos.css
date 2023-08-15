@@ -11,15 +11,16 @@
     padding: 60px 30px;
 }
 
-.quienesSomos-card p {
-    font-weight: 200;
+.quienesSomos-card-container p {
+    font-weight: 400;
 }
 
 .quienesSomos-card h3 {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     font-size: 30px;
     font-weight: 500;
 }
+
 
 .card-imagen{
     display: none;

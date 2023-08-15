@@ -22,10 +22,10 @@ let valores = {
 const validarInput = (input) => {
   if(input.name === "nombre")
   {
-    if(input.value.length < 5) 
+    if(input.value.length < 2) 
     {
       input.classList.add("input-warning")
-      warning_nombre.innerText = "Este campo debe ser mayor a 5 caracteres"
+      warning_nombre.innerText = "Este campo es obligatorio, ingrese su nombre completo"
       valores.nombre = false
     }
     else
@@ -49,7 +49,7 @@ const validarInput = (input) => {
     if(input.value.length < 1) 
     {
       input.classList.add("input-warning")
-      warning_email.innerText = "Este campo es obligatorio"
+      warning_email.innerText = "Este campo es obligatorio, ingrese su correo"
       valores.email = false
     }
     else
@@ -73,7 +73,7 @@ const validarInput = (input) => {
     if(input.value.length < 1) 
     {
       input.classList.add("input-warning")
-      warning_telefono.innerText = "Este campo es obligatorio"
+      warning_telefono.innerText = "Este campo es obligatorio, ingrese su telefono"
       valores.telefono = false
     }
     else
@@ -96,29 +96,23 @@ const validarInput = (input) => {
   {
     if(input.value.length < 1) 
     {
-      input.classList.add("input-warning")
-      warning_duda.innerText = "Este campo debe ser mayor a 1 caracteres"
-      valores.duda = false
-    }
-    else
-    {
-     
         input.classList.remove("input-warning")
         warning_duda.innerText = ""
-        valores.duda = true
-      
+      valores.duda=true
     }
   }
   
 }
 
+inputs.forEach(input => {
+  input.addEventListener("keyup", () => validarInput(input))
+  input.addEventListener("blur", () => validarInput(input))
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  for (const input of inputs) {
-    validarInput(input);
-  }
-  if (!valores.nombre || !valores.email || !valores.telefono || !valores.duda) {
+  
+  if (!valores.nombre || !valores.email || !valores.telefono) {
     Swal.fire({
       icon: 'error',
       title: 'Error',
@@ -127,35 +121,33 @@ form.addEventListener("submit", (e) => {
       background: '#061A40',
     });
     e.stopPropagation();
-  } else {
-    // Si todos los campos son válidos, enviar el formulario al archivo PHP
+  } else{
     fetch('enviar.php', {
       method: 'POST',
       body: new FormData(form)
     })
     .then(response => response.text())
     .then(data => {
-      // Mostrar el SweetAlert de éxito después de enviar el formulario
+      // Mostrar el SweetAlert de Ã©xito despuÃ©s de enviar el formulario
       Swal.fire({
         icon: 'success',
         title: 'Consulta enviada exitosamente',
-        text: 'Será contactado por nosotros brevemente,muchas gracias',
+        text: 'Sera contactado por nosotros brevemente,muchas gracias',
         confirmButtonColor: '#0353A4',
         background: '#061A40',
       });
       for (const input of inputs) {
-        input.value = ""; // Establecer el valor del campo a una cadena vacía
+        input.value = ""; // Establecer el valor del campo a una cadena vacÃ­a
+      }
+      valores = {
+        nombre: false,
+        email: false,
+        telefono: false,
+        duda: false,
       }
     })
     .catch(error => {
       console.error('Error al enviar el formulario:', error);
     });
   }
-});
-
-   
-    
-    
-    
-    
-    
+})
